@@ -28,6 +28,7 @@ public class DriveStraighht extends Command
 	protected void execute() {
 		if (DriveTrain.m_timer.get() < 4.1) {	
 		Gyro2.driveStraight(-0.6);
+		// 4.1 seconds of autonomous driving? backwards at 60%
 		}
 	}
 
