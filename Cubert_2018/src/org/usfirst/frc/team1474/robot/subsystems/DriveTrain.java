@@ -39,9 +39,12 @@ public class DriveTrain extends Subsystem{
 		// TODO Auto-generated method stub
 		
 	}
-	
-public void Stop() {
-	RobotDrive.arcadeDrive(0,0);
-}
-
+	public void Stop() {
+		
+	}
+/* Put Stop() as own command in Commands folder. -Casey
+	public void Stop() {
+		RobotDrive.arcadeDrive(0,0);
+	}
+*/	
 }
