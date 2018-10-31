@@ -1,12 +1,18 @@
 package org.usfirst.frc.team1474.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc.team1474.robot.Robot;
 import org.usfirst.frc.team1474.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1474.robot.subsystems.Gyro2;
+import org.usfirst.frc.team1474.robot.commands.Stop;
 
 public class DriveStraight extends Command {
-	public DriveStraight() {
+	
+	public double speed;
+	
+	public DriveStraight(double y) {
+		speed = y;
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.Gyro2);
 	}
@@ -15,7 +21,8 @@ public class DriveStraight extends Command {
 	@Override
 	protected void initialize() {
 		DriveTrain.m_timer.start();
-		Robot.Gyro2.prepareToDriveStraight();
+		//Robot.Gyro2.prepareToDriveStraight();
+		//Operator must manually select PrepareToDriveStraight, after command was moved from subsystem to commands.
       
 	}
 
@@ -23,7 +30,11 @@ public class DriveStraight extends Command {
 	@Override
 	protected void execute() {
 		if (DriveTrain.m_timer.get() < 4.1) {	
-		Gyro2.driveStraight(-0.6);
+			double currentHeading = Robot.Gyro2.Gyro.getAngle();
+			double currentOffsetFromDesiredHeading = currentHeading - Gyro2.m_driveStraightHeading; 
+			double rotationSpeed = currentOffsetFromDesiredHeading * 0.19;
+			
+			DriveTrain.RobotDrive.arcadeDrive(speed, -rotationSpeed);
 		}
 	}
 
@@ -36,7 +47,7 @@ public class DriveStraight extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.Gyro2.Stop();
+		Robot.Gyro2.Stop();//TODO: Change this to command stop, not the one in Gyro2.
 		DriveTrain.m_timer.reset();
 	}
 

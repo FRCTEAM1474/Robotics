@@ -8,7 +8,7 @@ public class Gyro2 extends Subsystem {
 
 public static ADXRS450_Gyro Gyro = new ADXRS450_Gyro();
 
-static double m_driveStraightHeading; 
+public static double m_driveStraightHeading; 
 
 		@Override
 		protected void initDefaultCommand() {
@@ -17,11 +17,11 @@ static double m_driveStraightHeading;
 		}
 
 		
-public void prepareToDriveStraight() {
-	m_driveStraightHeading = Gyro.getAngle();
+public void PrepareToDriveStraight() {//moved to Commands
+	//m_driveStraightHeading = Gyro.getAngle();
 }
 		
-public static void driveStraight(double speed) {
+public static void driveStraight(double speed) {//TODO: finish moving to Commands.
 	double currentHeading = Gyro.getAngle();
 	double currentOffsetFromDesiredHeading = currentHeading - m_driveStraightHeading; 
 	double rotationSpeed = currentOffsetFromDesiredHeading * 0.19;
@@ -29,7 +29,7 @@ public static void driveStraight(double speed) {
 	DriveTrain.RobotDrive.arcadeDrive(speed, -rotationSpeed);
 }
 
-public static void Turn(double angle) {
+public static void Turn(double angle) {//TODO: Move to commands
 	double currentHeading = Gyro.getAngle();
 	double currentOffsetFromDesiredHeading = angle- currentHeading; 
 	double rotationSpeed = currentOffsetFromDesiredHeading * 0.24;
@@ -38,7 +38,7 @@ public static void Turn(double angle) {
 
 }
 
-public void Stop() {
+public void Stop() {//TODO: Move to commands/figure out whether I need to because its duplicate of the drivetrain stop() which is already in commands.
 	DriveTrain.RobotDrive.arcadeDrive(0,0);
 }
 }
